@@ -1,0 +1,6 @@
+Code run by Nitin Singh
+Environment variable UWHPSC is /Users/nitinsingh/Dropbox/Academics/eCourses/coursera/HPSC/uwhpsc
+Environment variable MYHPSC is /Users/nitinsingh/Dropbox/Academics/eCourses/coursera/HPSC/MYHPSC
+Imported numpy ok
+Imported matplotlib ok
+Imported pylab ok
