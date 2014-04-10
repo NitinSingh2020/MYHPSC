@@ -28,7 +28,6 @@ def quad_interp(xi,yi):
     assert len(xi)==3 and len(yi)==3, error_message
 
     # Set up linear system to interpolate through data points:
-    A = np.array([[1., -1., 1.], [1., 0., 0.], [1., 2., 4.]])
     A = np.vstack([np.ones(3), xi, xi**2]).T
     b = yi
     
@@ -51,7 +50,41 @@ def test_quad1():
     # test that all elements have small error:
     assert np.allclose(c, c_true), \
         "Incorrect result, c = %s, Expected: c = %s" % (c,c_true)
-        
+
+def plot_quad(xi,yi):
+    """
+    Plots the interpolating polynomial & data points
+    and save the fig as quadratic.png
+    """
+    # Get c, an array containing the coefficients of
+    # p(x) = c[0] + c[1]*x + c[2]*x**2.
+    c = quad_interp(xi,yi)
+
+    # Plot the resulting polynomial:
+    x = np.linspace(xi.min() - 1,  xi.max() + 1, 1000) # points to evaluate polynomial
+    y = c[0] + c[1]*x + c[2]*x**2
+
+    plt.figure(1)       # open plot figure window
+    plt.clf()           # clear figure
+    plt.plot(x,y,'b-')  # connect points with a blue line
+
+    # Add data points  (polynomial should go through these points!)
+    plt.plot(xi,yi,'ro')   # plot as red circles
+    plt.ylim(-2,8)         # set limits in y for plot
+
+    plt.title("Data points and interpolating polynomial")
+
+    plt.savefig('quadratic.png')   # save figure as .png file
+
+def test_quad2():
+    """
+    Test code, no return value or exception if test runs properly.
+    """
+    xi = np.array([-1.,  0.,  2.])
+    yi = np.array([ 1., -1.,  7.])
+    plot_quad(xi,yi)
+    print "png file saved in the current working directory"
+    
 if __name__=="__main__":
     # "main program"
     # the code below is executed only if the module is executed at the command line,
@@ -61,4 +94,5 @@ if __name__=="__main__":
     # not if the module is imported.
     print "Running test..."
     test_quad1()
+    test_quad2()
 
